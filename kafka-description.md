@@ -98,3 +98,14 @@ Other values may be `0` of `1` but thay can cause data loss.
 
 ### Console Consumer
 
+```
+kafka-console-consumer --bootstrap-server 127.0.0.1:9092 --topic first_topic
+```
+
+Reads all new messages from a topic
+
+## Java applications
+
+In `FirstProject/src/main/java/com/github/arshestopal/kafka/first`
+
+are simple the Producer and Consumer clases with different basic features, the goal is to demonstrate how backbone functionality canbe created programatically.

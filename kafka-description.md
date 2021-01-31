@@ -109,3 +109,24 @@ Reads all new messages from a topic
 In `FirstProject/src/main/java/com/github/arshestopal/kafka/first`
 
 are simple the Producer and Consumer clases with different basic features, the goal is to demonstrate how backbone functionality canbe created programatically.
+
+## Twitter project
+
+ ----------      -------      ---------       ---------------
+| Producer | -> | Kafka | <- | Consumer | -> | Elasticsearch |
+ ----------      -------      ---------       ---------------
+
+Code can be dound in `FirstProject/src/main/java/com/github/arshestopal/kafka/twitter`
+Kafka Producer uses Twitter Client to read stream mof data from Twitter API, pushes data to kafka broker, which are then read by Consumer and are written to Elasticsearch Database.
+
+Code is quite self explanatory.
+Indempotent procucer is worth to mention.
+Indempotent means that it dous not create duplicates. To make it work just set
+`enable. idempotence=true`
+
+It is the same as set
+```
+aks=1
+retries= INTEGER_MAX_VALUE (may be different in different systems)
+max.in.flight.requests.per.connection = 5 // For kafka version >= 2.0.0. For kafka version <= 1.1 use 1
+ ```

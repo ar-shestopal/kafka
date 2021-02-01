@@ -130,3 +130,50 @@ aks=1
 retries= INTEGER_MAX_VALUE (may be different in different systems)
 max.in.flight.requests.per.connection = 5 // For kafka version >= 2.0.0. For kafka version <= 1.1 use 1
  ```
+
+
+
+ ### Elasticsearch
+
+ Install it with (MacOS)
+ ```
+ brew install elasticsearch
+ ```
+open `/usr/local/etc/elasticsearch/elasticsearch.yml`
+end change settings to
+```
+node.name: node-1
+cluster.initial_master_nodes: ["node-1"] # as we want to have only 1 node in the cluster
+```
+Run
+```
+curl -XGET 127.0.0.1:9200
+```
+The response will be
+```
+{
+  "name" : "node-1",
+  "cluster_name" : "elasticsearch_oshestopal",
+  "cluster_uuid" : "ICK54DpQRyW6FTRXNasp5Q",
+  "version" : {
+    "number" : "7.10.2",
+    "build_flavor" : "default",
+    "build_type" : "tar",
+    "build_hash" : "747e1cc71def077253878a59143c1f785afa92b9",
+    "build_date" : "2021-01-13T00:42:12.435326Z",
+    "build_snapshot" : false,
+    "lucene_version" : "8.7.0",
+    "minimum_wire_compatibility_version" : "6.8.0",
+    "minimum_index_compatibility_version" : "6.0.0-beta1"
+  },
+  "tagline" : "You Know, for Search"
+}
+```
+Download schema for shekspir dataset , and dataset itself and use the schema
+```
+wget http://media.sundog-soft.com/es7/shakes-mapping.json
+curl -H "Content-type: application/json" -XPUT 127.0.0.1:9200/shakespeare --data-binary @shakes-mapping.json
+wget http://media.sundog-soft.com/es7/shakespeare_7.0.json
+curl "Content-type: application/json" -XPOST '127.0.0.1:9200/shakespeare/_bulk' --data-binary @shakespeare.json
+```
+

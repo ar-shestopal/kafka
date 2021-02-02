@@ -174,6 +174,19 @@ Download schema for shekspir dataset , and dataset itself and use the schema
 wget http://media.sundog-soft.com/es7/shakes-mapping.json
 curl -H "Content-type: application/json" -XPUT 127.0.0.1:9200/shakespeare --data-binary @shakes-mapping.json
 wget http://media.sundog-soft.com/es7/shakespeare_7.0.json
-curl "Content-type: application/json" -XPOST '127.0.0.1:9200/shakespeare/_bulk' --data-binary @shakespeare.json
+curl "Content-type: application/json" -XPOST '127.0.0.1:9200/shakespeare/_bulk' --data-binary @shakespeare_7.0.json
 ```
+
+Create new `movies` index
+curl -XPUT localhost:9200/movies
+```
+{
+  "mappings": {
+    "properties": {
+      "year": {
+        "type": "date"
+      }
+    }
+  }
+}
 

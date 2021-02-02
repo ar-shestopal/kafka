@@ -177,6 +177,8 @@ wget http://media.sundog-soft.com/es7/shakespeare_7.0.json
 curl "Content-type: application/json" -XPOST '127.0.0.1:9200/shakespeare/_bulk' --data-binary @shakespeare_7.0.json
 ```
 
+I willl ommit `Content-type: applilcation/json` just add it to each, curl command or use `ealsticsearch-head` plugin
+
 Create new `movies` index
 curl -XPUT localhost:9200/movies
 ```
@@ -190,3 +192,14 @@ curl -XPUT localhost:9200/movies
   }
 }
 
+Add individual item
+```
+curl -XPOST localhost:9200/movies/_doc/1
+{
+  "genre": [
+    "SI-FI"
+  ],
+  "title": "Terminator",
+  "year": 1986
+}
+```
